@@ -3,7 +3,7 @@
 // ============================================================
 import { fetchPosts, deletePost, updatePostStatus } from "./posts.js";
 import { requireAuth }                              from "./auth.js";
-import { showConfirm, showToast, statusBadge, formatDate, categoryIcon, renderEmptyState } from "./ui.js";
+import { showConfirm, statusBadge, formatDate, categoryIcon, renderEmptyState } from "./ui.js";
 
 let currentUser = null;
 let activeTab   = "lost";
@@ -28,8 +28,8 @@ function updateUserInfo() {
 
 async function loadBothTabs() {
   const [lost, found] = await Promise.all([
-    fetchPosts("lost",  { userId: currentUser.uid }),
-    fetchPosts("found", { userId: currentUser.uid }),
+    fetchPosts("lost"),
+    fetchPosts("found"),
   ]);
   userPosts.lost  = lost;
   userPosts.found = found;
@@ -70,41 +70,19 @@ function renderTab(type) {
   const items = userPosts[type];
 
   if (!items.length) {
-    renderEmptyState(grid, `You haven't posted any ${type} items yet.`);
+    renderEmptyState(grid, `No ${type} items have been posted yet.`);
     return;
   }
 
   grid.innerHTML = items.map(item => dashCard(item, type)).join("");
-  attachCardActions(type);
+  attachImageFallbacks(grid);
+  attachCardActions();
 }
 
 function dashCard(item, type) {
   const placeholder = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.title)}&background=0d1b2e&color=3b82f6&size=400`;
-  return `
-    <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-blue-500/30 transition-all duration-300">
-      <div class="relative h-40 overflow-hidden bg-[#0a1628]">
-        <img src="${item.imageUrl || placeholder}"
-             alt="${item.title}"
-             class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-             onerror="this.src='${placeholder}'"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#080f1d]/80 to-transparent"></div>
-        <div class="absolute top-3 right-3">${statusBadge(item.status)}</div>
-        <div class="absolute bottom-3 left-3 text-xl">${categoryIcon(item.category)}</div>
-      </div>
-      <div class="p-4 flex flex-col flex-1">
-        <h3 class="text-white font-bold text-sm mb-1 line-clamp-1">${item.title}</h3>
-        <p class="text-slate-500 text-xs mb-3 flex-1 line-clamp-2">${item.description || ""}</p>
-        <div class="text-xs text-slate-600 mb-4">${formatDate(item.createdAt)}</div>
-
-        <!-- Status selector -->
-        <select data-status-id="${item.id}" data-status-type="${type}"
-          class="w-full mb-3 bg-white/5 border border-white/10 text-slate-300 text-xs rounded-xl px-3 py-2
-                 focus:outline-none focus:border-blue-500/50 cursor-pointer">
-          <option value="open"     ${item.status==="open"     ? "selected" : ""}>Open</option>
-          <option value="claimed"  ${item.status==="claimed"  ? "selected" : ""}>Claimed</option>
-          <option value="reunited" ${item.status==="reunited" ? "selected" : ""}>Reunited</option>
-        </select>
-
+  const isOwner = currentUser && item.userId === currentUser.uid;
+  const actions = isOwner ? `
         <div class="flex gap-2">
           <a href="post.html?type=${type}&id=${item.id}&edit=1"
             class="flex-1 py-2 rounded-xl border border-blue-500/30 text-blue-400 text-xs font-semibold
@@ -117,12 +95,51 @@ function dashCard(item, type) {
             Delete
           </button>
         </div>
+      ` : `
+        <div class="text-xs text-slate-600">Posted by another user</div>
+      `;
+  return `
+    <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-blue-500/30 transition-all duration-300">
+      <div class="relative h-40 overflow-hidden bg-[#0a1628]">
+        <img src="${item.imageUrl || placeholder}"
+             alt="${item.title}"
+             class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+             data-fallback="${placeholder}"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#080f1d]/80 to-transparent"></div>
+        <div class="absolute top-3 right-3">${statusBadge(item.status)}</div>
+        <div class="absolute bottom-3 left-3 text-xl">${categoryIcon(item.category)}</div>
+      </div>
+      <div class="p-4 flex flex-col flex-1">
+        <h3 class="text-white font-bold text-sm mb-1 line-clamp-1">${item.title}</h3>
+        <p class="text-slate-500 text-xs mb-3 flex-1 line-clamp-2">${item.description || ""}</p>
+        <div class="text-xs text-slate-600 mb-4">${formatDate(item.createdAt)}</div>
+        ${isOwner ? `
+        <!-- Status selector -->
+        <select data-status-id="${item.id}" data-status-type="${type}"
+          class="w-full mb-3 bg-white/5 border border-white/10 text-slate-300 text-xs rounded-xl px-3 py-2
+                 focus:outline-none focus:border-blue-500/50 cursor-pointer">
+          <option value="open"     ${item.status==="open"     ? "selected" : ""}>Open</option>
+          <option value="claimed"  ${item.status==="claimed"  ? "selected" : ""}>Claimed</option>
+          <option value="reunited" ${item.status==="reunited" ? "selected" : ""}>Reunited</option>
+        </select>
+        ` : ""}
+
+        ${actions}
       </div>
     </div>
   `;
 }
 
-function attachCardActions(type) {
+function attachImageFallbacks(grid) {
+  grid.querySelectorAll("img[data-fallback]").forEach(img => {
+    img.addEventListener("error", () => {
+      const fallback = img.dataset.fallback;
+      if (fallback && img.src !== fallback) img.src = fallback;
+    });
+  });
+}
+
+function attachCardActions() {
   const grid = document.getElementById("dashGrid");
 
   // Status change

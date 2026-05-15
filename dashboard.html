@@ -141,132 +141,77 @@
   </div>
 </nav>
 
-<!-- MAIN -->
-<main class="pt-28 pb-20 px-4 relative z-10">
-
+<!-- Header -->
+<section class="pt-24 pb-8 px-4 relative z-10 border-b border-white/5">
   <div class="max-w-7xl mx-auto">
-
-    <!-- USER CARD -->
-    <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8">
-
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-
-        <!-- Left -->
-        <div class="flex items-center gap-5">
-
-          <div id="userAvatar"
-               class="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/30
-                     flex items-center justify-center text-blue-400 text-2xl font-bold">
-            U
-          </div>
-
-          <div>
-
-            <h1 id="userName"
-                class="font-display text-2xl font-bold text-white">
-              User
-            </h1>
-
-            <p id="userEmail"
-               class="text-slate-400 text-sm mt-1">
-              user@example.com
-            </p>
-
-          </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <div id="userAvatar"
+             class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center font-display font-black text-white text-xl shadow-2xl shadow-blue-600/30">U</div>
+        <div>
+          <h1 class="font-display text-2xl sm:text-3xl font-bold text-white" id="userName">User</h1>
+          <p class="text-slate-500 text-sm mt-1" id="userEmail">Loading account…</p>
         </div>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-6">
-
-          <div class="text-center">
-
-            <div id="statTotal"
-                 class="font-display text-2xl font-bold text-blue-400">
-              0
-            </div>
-
-            <div class="text-slate-500 text-xs mt-1">
-              Total
-            </div>
-
-          </div>
-
-          <div class="text-center">
-
-            <div id="statOpen"
-                 class="font-display text-2xl font-bold text-amber-400">
-              0
-            </div>
-
-            <div class="text-slate-500 text-xs mt-1">
-              Open
-            </div>
-
-          </div>
-
-          <div class="text-center">
-
-            <div id="statReunited"
-                 class="font-display text-2xl font-bold text-emerald-400">
-              0
-            </div>
-
-            <div class="text-slate-500 text-xs mt-1">
-              Reunited
-            </div>
-
-          </div>
-
-        </div>
-
       </div>
+      <a href="post.html"
+         class="btn-primary px-5 py-3 rounded-xl text-white font-semibold text-sm inline-flex items-center gap-2 self-start sm:self-auto">
+        <svg class="w-4 h-4"
+             fill="none"
+             stroke="currentColor"
+             viewBox="0 0 24 24">
+          <path stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"/></svg>
+        Post New Item
+      </a>
     </div>
-
-    <!-- TABS -->
-    <div class="flex flex-wrap items-center gap-4 mb-8">
-
-      <button data-tab="lost"
-              class="tab-active px-5 py-3 rounded-2xl glass-card text-sm font-semibold flex items-center gap-2">
-
-        <span>🔍</span>
-
-        <span>Lost Items</span>
-
-        <span id="lostCount"
-              class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-xs">
-            0
-          </span>
-
-      </button>
-
-      <button data-tab="found"
-              class="px-5 py-3 rounded-2xl glass-card text-sm font-semibold flex items-center gap-2
-                 text-slate-400 hover:text-slate-200 transition-all">
-
-        <span>📦</span>
-
-        <span>Found Items</span>
-
-        <span id="foundCount"
-              class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-xs">
-            0
-          </span>
-
-      </button>
-
-    </div>
-
-    <!-- GRID -->
-    <div id="dashGrid"
-         class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-
-      <!-- Dynamic Cards -->
-
-    </div>
-
   </div>
+</section>
 
-</main>
+<!-- Stats -->
+<section class="py-8 px-4 relative z-10">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <div class="glass-card rounded-2xl p-5">
+      <div class="text-slate-500 text-xs mb-1">Total Posts</div>
+      <div id="statTotal"
+           class="font-display text-3xl font-bold text-white">0</div>
+    </div>
+    <div class="glass-card rounded-2xl p-5">
+      <div class="text-slate-500 text-xs mb-1">Open Items</div>
+      <div id="statOpen"
+           class="font-display text-3xl font-bold text-blue-400">0</div>
+    </div>
+    <div class="glass-card rounded-2xl p-5">
+      <div class="text-slate-500 text-xs mb-1">Reunited</div>
+      <div id="statReunited"
+           class="font-display text-3xl font-bold text-emerald-400">0</div>
+    </div>
+  </div>
+</section>
+
+<!-- Tabs -->
+<section class="px-4 relative z-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 border-b border-white/5 mb-6">
+      <button data-tab="lost"
+              class="tab-btn tab-active px-4 py-3 text-sm font-semibold flex items-center gap-2">
+        Lost Items <span id="lostCount"
+              class="text-xs text-slate-500">0</span>
+      </button>
+      <button data-tab="found"
+              class="tab-btn px-4 py-3 text-sm font-semibold flex items-center gap-2">
+        Found Items <span id="foundCount"
+              class="text-xs text-slate-500">0</span>
+      </button>
+    </div>
+
+    <div id="dashGrid"
+         class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pb-12">
+      <!-- Dashboard items rendered here -->
+    </div>
+  </div>
+</section>
 
 <!-- SCRIPTS -->
 <script type="module">
@@ -274,29 +219,13 @@
   import { initDashboard } from "./js/dashboard.js";
   import { logout } from "./js/auth.js";
 
-  // Init Dashboard
+  document.getElementById("mobileMenuBtn")?.addEventListener("click", () => {
+    document.getElementById("mobileMenu").classList.toggle("hidden");
+  });
+  document.getElementById("logoutBtn")?.addEventListener("click", logout);
+
   initDashboard();
 
-  // Logout
-  document.getElementById("logoutBtn")
-          ?.addEventListener("click", logout);
-
-  // Mobile Menu
-  const mobileBtn  = document.getElementById("mobileMenuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  mobileBtn?.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-
-  // Emergency Spinner Cleanup
-  window.addEventListener("load", () => {
-    const spinner = document.getElementById("globalSpinner");
-
-    if (spinner) {
-      spinner.style.display = "none";
-    }
-  });
 
 </script>
 
