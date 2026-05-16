@@ -1,64 +1,170 @@
-# Lost & Found — Web Application
+# Lost & Found Platform
 
-A community-driven Lost & Found platform built with vanilla HTML/CSS/JS and Firebase.
+A modern, responsive **Lost & Found web application** designed to help
+users report, search, and recover lost belongings efficiently.
 
----
+## Problem Statement
 
-## 📁 Project Structure
+Losing personal belongings in campuses, public spaces, or events often
+leads to confusion and poor recovery rates due to the lack of a
+centralized reporting system.
 
-```
-lost-and-found/
-├── index.html          — Homepage with hero, features, recent items
-├── login.html          — Login / Sign Up page
-├── lost.html           — Browse lost items
-├── found.html          — Browse found items
-├── post.html           — Post a new item (or edit existing)
-├── dashboard.html      — User dashboard (my posts, stats)
+The **Lost & Found Platform** solves this problem by providing: - A
+centralized system to report lost/found items - Search and filtering
+functionality - Image-based identification - Direct contact options -
+Organized item management
+
+## Features
+
+### Item Management
+
+-   Post **Lost Items**
+-   Post **Found Items**
+-   Edit existing posts
+-   Delete posts
+-   Update item status
+
+### Image Upload
+
+-   Upload item photos using **Firebase Storage**
+-   Image preview before posting
+-   Drag-and-drop image support
+-   Upload progress tracking
+
+### Search & Filtering
+
+Search by: - Item title - Description - Location - Contact details
+
+### Dashboard
+
+-   View all personal posts
+-   Manage uploaded items
+-   Edit item details
+-   Track status
+
+### Contact Features
+
+-   Contact information on item cards
+-   Contact page with:
+    -   Team contact information
+    -   Social links (GitHub & LinkedIn)
+    -   Embedded Google Maps location
+    -   Firebase-powered contact form
+
+### Authentication
+
+-   Firebase Authentication
+-   User login/logout
+-   Protected routes
+
+### Responsive UI
+
+Fully responsive across: - Mobile - Tablet - Desktop
+
+## Tech Stack
+
+### Frontend
+
+-   HTML5
+-   CSS3
+-   JavaScript (ES6 Modules)
+-   Tailwind CSS
+
+### Backend & Database
+
+-   Firebase Firestore
+-   Firebase Storage
+-   Firebase Authentication
+
+### Hosting
+
+-   GitHub Pages
+
+## Project Structure
+
+``` text
+Lost-and-Found/
+│
+├── index.html
+├── lost.html
+├── found.html
+├── dashboard.html
+├── post.html
+├── contact.html
+├── login.html
+│
 ├── css/
-│   └── style.css       — Dark futuristic UI styles
-└── js/
-    ├── firebase.js     — Firebase config & exports
-    ├── auth.js         — Auth helpers (login, signup, logout)
-    ├── posts.js        — Firestore CRUD + image upload
-    ├── search.js       — Search/filter + item card rendering
-    ├── dashboard.js    — Dashboard logic
-    └── ui.js           — Toast, spinner, badges, helpers
+│   └── style.css
+│
+├── js/
+│   ├── auth.js
+│   ├── firebase.js
+│   ├── posts.js
+│   ├── search.js
+│   ├── dashboard.js
+│   ├── ui.js
+│   └── contact.js
 ```
 
----
+## Firebase Collections
 
-## 🚀 Setup
+-   `lostItems`
+-   `foundItems`
+-   `contactMessages`
 
+## Setup
 
-## 🖥️ Run Locally
+### Clone Repository
 
-```bash
-cd lost-and-found
-
-# Python (built-in)
-python -m http.server 8000
-
-# OR with Node.js
-npx serve .
+``` bash
+git clone https://github.com/YOUR_USERNAME/Lost-and-Found.git
+cd Lost-and-Found
 ```
 
-Then open [http://localhost:8000](http://localhost:8000)
+### Configure Firebase
 
+Enable: - Firestore Database - Firebase Authentication - Firebase
+Storage
 
-##  Features
+Add Firebase config inside:
 
-- **User authentication** — Email/password sign up & login
-- **Post lost/found items** — With photo upload, category, location, date
-- **Search & filter** — By keyword, category, status, sort order
-- **Dashboard** — View/edit/delete your posts, update status
-- **Status tracking** — Open → Claimed → Reunited
-- **Fully responsive** — Mobile-first design
+`js/firebase.js`
 
----
+### Run Locally
 
-##  Tech Stack
+Using VS Code Live Server:
 
-- **Frontend:** Vanilla HTML5, CSS3, Tailwind CSS (CDN)
-- **Backend:** Firebase (Auth, Firestore, Storage)
-- **Fonts:** Orbitron (display), Outfit (body) via Google Fonts
-- **No build step required** — pure ES modules
+``` text
+Right Click → Open with Live Server
+```
+
+Or:
+
+``` bash
+python -m http.server
+```
+
+## Future Improvements
+
+-   AI-powered item matching
+-   Email notifications
+-   Admin dashboard for messages
+-   Claim verification workflow
+-   Real-time chat support
+
+## Contributors
+
+-   **Rahul R Nair**
+-   **Adithyanandan Arun**
+-   **Ganesh S**
+-   **Muhammad Yazeen**
+
+## Academic Purpose
+
+This project was developed as a **college team project** to explore: -
+Frontend Development - Firebase Integration - Authentication Systems -
+Cloud Databases - Full Stack Development
+
+## License
+
+This project is intended for **educational and academic purposes**.
