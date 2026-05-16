@@ -7,7 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { showToast, showSpinner, hideSpinner } from "./ui.js";
 
@@ -47,6 +48,21 @@ export async function logout() {
   await signOut(auth);
   showToast("Logged out successfully.", "info");
   window.location.href = "login.html";
+}
+
+// ── Reset Password ────────────────────────────────────────────
+export async function resetPassword(email) {
+  showSpinner();
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showToast("Password reset email sent! Please check your inbox.", "success");
+    return true;
+  } catch (err) {
+    showToast(friendlyError(err.code), "error");
+    return false;
+  } finally {
+    hideSpinner();
+  }
 }
 
 // ── Session Watcher ───────────────────────────────────────────
