@@ -12,15 +12,8 @@ export function itemCard(item, type) {
     `https://ui-avatars.com/api/?name=${encodeURIComponent(item.title)}&background=0d1b2e&color=3b82f6&size=400`;
   const typeColor = type === "lost" ? "#f87171" : "#34d399";
   const typeLabel = type === "lost" ? "Lost" : "Found";
-  const viewBtn = type === "lost"
-    ? ""
-    : `
-      <a href="post.html?type=${type}&id=${item.id}"
-         class="w-full py-2.5 rounded-xl text-center text-xs font-semibold transition-all
-                border border-blue-500/30 text-blue-400 hover:bg-blue-500/10">
-        View Details
-      </a>
-    `;
+  // No "View Details" button for either lost or found item cards
+  const viewBtn = "";
   return `
     <div class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:border-blue-500/30 transition-all duration-300">
       <div class="relative h-44 overflow-hidden bg-[#0a1628]">

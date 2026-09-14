@@ -82,20 +82,19 @@ Fully responsive across: - Mobile - Tablet - Desktop
 
 ## Project Structure
 
-``` text
+```text
 Lost-and-Found/
-│
 ├── index.html
+├── login.html
+├── forgot-password.html
+├── post.html
 ├── lost.html
 ├── found.html
 ├── dashboard.html
-├── post.html
 ├── contact.html
-├── login.html
-│
+├── README.md
 ├── css/
 │   └── style.css
-│
 ├── js/
 │   ├── auth.js
 │   ├── firebase.js
@@ -104,6 +103,11 @@ Lost-and-Found/
 │   ├── dashboard.js
 │   ├── ui.js
 │   └── contact.js
+├── assets/
+│   ├── Adithyanandan.png
+│   ├── Ganesh.png
+│   ├── rahul.jpeg
+│   └── Yazeen.jpeg
 ```
 
 ## Firebase Collections
